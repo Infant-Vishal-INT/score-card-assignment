@@ -1,0 +1,17 @@
+.table-name {
+  color: #2a4bf5;
+  font-family: "Roboto";
+  font-size: 25px;
+  font-weight: bold;
+  margin: 16px;
+}
+
+.modal-text {
+  font-weight: 600;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
