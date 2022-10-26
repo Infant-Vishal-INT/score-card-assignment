@@ -11,7 +11,7 @@ const Attendence = () => {
   } else {
     numOfDaysPresent = attendenceArr[0].presentDays;
   }
-  console.log("numOfDaysPresent =", numOfDaysPresent);
+
   return (
     <div>
       <table className="table table-bordered table-hover" id="attendence_table">
