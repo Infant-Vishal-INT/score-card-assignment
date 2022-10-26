@@ -37,8 +37,6 @@ const CoScholasticAreasForm = ({ coScholasticGradeArr }) => {
     }),
     onSubmit: (values) => {
       dispatch(manageCoScholasticGrade(values));
-      console.log(coScholasticGradeArr);
-      console.log("selected skills", selectedSkill);
       formik.resetForm();
     },
   });
