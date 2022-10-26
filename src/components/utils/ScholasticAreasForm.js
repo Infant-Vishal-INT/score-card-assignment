@@ -173,7 +173,7 @@ const ScholasticAreasForm = ({ scholasticMarksArr }) => {
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Close
         </button>
-        <button type="submit" class="btn btn-primary ml-3">
+        <button type="submit" class="btn btn-success ml-3">
           Add to Table
         </button>
       </div>
