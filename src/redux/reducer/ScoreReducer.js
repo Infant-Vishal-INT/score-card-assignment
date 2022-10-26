@@ -1,7 +1,7 @@
 const initialState = {
   scholasticMarks: [],
   coScholasticGrade: [],
-  attendence: 0,
+  attendence: [],
 };
 const ScoreReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -18,7 +18,7 @@ const ScoreReducer = (state = initialState, action) => {
     case "ATTENDENCE":
       return {
         ...state,
-        attendence: action.payload,
+        attendence: [action.payload],
       };
     default:
       return state;

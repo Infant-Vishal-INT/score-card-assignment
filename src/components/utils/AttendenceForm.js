@@ -11,7 +11,7 @@ const AttendenceForm = () => {
 
   const formik = useFormik({
     initialValues: {
-      presentDays: "",
+      presentDays: 0,
     },
     validationSchema: yup.object({
       presentDays: yup

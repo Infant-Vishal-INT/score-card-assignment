@@ -4,10 +4,14 @@ import "../../assets/css/table.css";
 import AttendenceForm from "../utils/AttendenceForm";
 
 const Attendence = () => {
-  const presentDay = useSelector(
-    (state) => state.scoreReducer.attendence
-  );
-  console.log("presentDay",presentDay)
+  const attendenceArr = useSelector((state) => state.scoreReducer.attendence);
+  let numOfDaysPresent = 0;
+  if (attendenceArr.length == 0) {
+    numOfDaysPresent = 0;
+  } else {
+    numOfDaysPresent = attendenceArr[0].presentDays;
+  }
+  console.log("numOfDaysPresent =", numOfDaysPresent);
   return (
     <div>
       <table className="table table-bordered table-hover" id="attendence_table">
@@ -69,8 +73,8 @@ const Attendence = () => {
           <tr>
             <td scope="row">TERM - I</td>
             <td>83</td>
-            <td>83</td>
-            <td>100 %</td>
+            <td>{numOfDaysPresent}</td>
+            <td>{((numOfDaysPresent * 100) / 83).toFixed(1)}%</td>
           </tr>
         </tbody>
       </table>
