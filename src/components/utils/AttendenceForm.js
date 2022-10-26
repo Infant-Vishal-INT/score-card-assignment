@@ -6,8 +6,6 @@ import { manageAttendence } from "../../redux/actions";
 
 const AttendenceForm = () => {
   const dispatch = useDispatch();
-  const attendence = useSelector((state) => state.scoreReducer.attendence);
-
 
   const formik = useFormik({
     initialValues: {

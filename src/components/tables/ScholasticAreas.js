@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import "../../assets/css/table.css";
 import ScholasticAreasForm from "../utils/ScholasticAreasForm";
@@ -104,7 +104,7 @@ const ScholasticAreas = ({ cumulativeData, setCumulativeData }) => {
 
             return (
               <tr>
-                <td scope="row">{index + 1}</td>
+                <td>{index + 1}</td>
                 <td>{scholasticMarks.subject}</td>
                 <td>{scholasticMarks.faMark}</td>
                 <td>{scholasticMarks.faOralMark}</td>

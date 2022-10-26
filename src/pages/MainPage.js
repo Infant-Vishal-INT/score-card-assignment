@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../assets/css/mainPage.css";
 import Attendence from "../components/tables/Attendence";
 import CoScholasticAreas from "../components/tables/CoScholasticAreas";

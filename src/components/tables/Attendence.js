@@ -6,7 +6,7 @@ import AttendenceForm from "../utils/AttendenceForm";
 const Attendence = () => {
   const attendenceArr = useSelector((state) => state.scoreReducer.attendence);
   let numOfDaysPresent = 0;
-  if (attendenceArr.length == 0) {
+  if (attendenceArr.length === 0) {
     numOfDaysPresent = 0;
   } else {
     numOfDaysPresent = attendenceArr[0].presentDays;
@@ -71,7 +71,7 @@ const Attendence = () => {
         </thead>
         <tbody>
           <tr>
-            <td scope="row">TERM - I</td>
+            <td>TERM - I</td>
             <td>83</td>
             <td>{numOfDaysPresent}</td>
             <td>{((numOfDaysPresent * 100) / 83).toFixed(1)}%</td>
