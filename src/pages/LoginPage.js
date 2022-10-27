@@ -57,6 +57,7 @@ const LoginPage = () => {
       <ToastContainer />
       <div className="card align-self-center login-form-card">
         <div className="card-body">
+          <h4 class="card-title text-center">Login</h4>
           <form onSubmit={formik.handleSubmit}>
             <div className="form-group">
               <label htmlFor="loginEmail">Email address</label>
@@ -85,7 +86,7 @@ const LoginPage = () => {
                 name="loginPassword"
                 onChange={formik.handleChange}
                 value={formik.values.loginPassword}
-                placeholder="Password"
+                placeholder="Enter Password"
               />
               {formik.errors.loginPassword && formik.touched.loginPassword ? (
                 <div className="modal-text text-danger">
@@ -109,7 +110,7 @@ const LoginPage = () => {
             </div>
             <div className="text-center">
               <button type="submit" className="btn btn-success">
-                Login
+                Submit
               </button>
             </div>
           </form>
