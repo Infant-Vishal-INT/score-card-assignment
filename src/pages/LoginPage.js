@@ -24,7 +24,7 @@ const LoginPage = () => {
         .string()
         .email("Please enter the valid email")
         .required("Please enter the valid email"),
-      loginPassword: yup.string().required("Please enter the valid email"),
+      loginPassword: yup.string().required("Please enter the valid password"),
     }),
     onSubmit: async (values) => {
       console.log("values", values);
