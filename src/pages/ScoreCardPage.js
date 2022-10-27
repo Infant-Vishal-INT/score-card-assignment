@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "../assets/css/mainPage.css";
-import Attendence from "../components/tables/Attendence";
-import CoScholasticAreas from "../components/tables/CoScholasticAreas";
-import GradingScale from "../components/tables/GradingScale";
-import ScholasticAreas from "../components/tables/ScholasticAreas";
+import Attendence from "../components/tables/AttendenceTable";
+import CoScholasticAreas from "../components/tables/CoScholasticAreasTable";
+import GradingScale from "../components/tables/GradingScaleTable";
+import ScholasticAreas from "../components/tables/ScholasticAreasTable";
 import { downloadScoreCardPdf } from "../components/utils/DownloadPdf";
+import "../assets/css/mainPage.css";
 
-const MainPage = () => {
+const ScoreCardPage = () => {
   const scoreCardId = "score_card_container";
   const [cumulativeData, setCumulativeData] = useState({
     grandTotal: 0,
@@ -76,4 +76,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default ScoreCardPage;

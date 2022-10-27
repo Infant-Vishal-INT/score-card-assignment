@@ -18,5 +18,3 @@ export const manageAttendence = (values) => {
     payload: values,
   };
 };
-
-

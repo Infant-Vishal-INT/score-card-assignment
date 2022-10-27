@@ -4,10 +4,7 @@ import "../../assets/css/table.css";
 const GradingScale = () => {
   return (
     <div className="d-flex flex-row justify-content-center mt-4">
-      <table
-        className="table table-bordered table-hover w-75"
-        id="scholastic_areas_table"
-      >
+      <table className="table table-bordered w-75" id="scholastic_areas_table">
         <thead>
           <tr>
             <th colSpan={3}>

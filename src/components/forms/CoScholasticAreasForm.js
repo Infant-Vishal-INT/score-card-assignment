@@ -1,8 +1,8 @@
 import React from "react";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { manageCoScholasticGrade } from "../../redux/actions";
+import { coScholasticAreasValidation } from "../utils/Validation";
 
 const CoScholasticAreasForm = ({ coScholasticGradeArr }) => {
   const dispatch = useDispatch();
@@ -28,13 +28,7 @@ const CoScholasticAreasForm = ({ coScholasticGradeArr }) => {
       coScholasticSkills: "",
       grade: "",
     },
-    validationSchema: yup.object({
-      coScholasticSkills: yup
-        .string()
-        .required("Please select the Co-Scholastic Skill")
-        .nullable(),
-      grade: yup.string().required("Please select the grade").nullable(),
-    }),
+    validationSchema: coScholasticAreasValidation,
     onSubmit: (values) => {
       dispatch(manageCoScholasticGrade(values));
       formik.resetForm();

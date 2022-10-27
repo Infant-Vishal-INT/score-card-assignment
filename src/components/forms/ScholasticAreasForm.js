@@ -1,8 +1,8 @@
 import React from "react";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { manageScholasticMarks } from "../../redux/actions";
+import { scholasticAreasValidation } from "../utils/Validation";
 
 const ScholasticAreasForm = ({ scholasticMarksArr }) => {
   const dispatch = useDispatch();
@@ -31,29 +31,7 @@ const ScholasticAreasForm = ({ scholasticMarksArr }) => {
       saOralMark: "",
       overallMark: "",
     },
-    validationSchema: yup.object({
-      subject: yup.string().required("Please select the subject"),
-      faMark: yup
-        .number()
-        .min(0, "Minimum must be atleast 0")
-        .max(40, "There can be no mark higher than 40")
-        .required("Please enter the FA mark"),
-      faOralMark: yup
-        .number()
-        .min(0, "Minimum must be atleast 0")
-        .max(10, "There can be no mark higher than 10")
-        .required("Please enter the FA Oral mark"),
-      saMark: yup
-        .number()
-        .min(0, "Minimum must be atleast 0")
-        .max(40, "There can be no mark higher than 40")
-        .required("Please enter the SA mark"),
-      saOralMark: yup
-        .number()
-        .min(0, "Minimum must be atleast 0")
-        .max(10, "There can be no mark higher than 10")
-        .required("Please enter the SA Oral mark"),
-    }),
+    validationSchema: scholasticAreasValidation,
     onSubmit: (values) => {
       values.overallMark =
         values.faMark + values.faOralMark + values.saMark + values.saOralMark;
@@ -83,7 +61,9 @@ const ScholasticAreasForm = ({ scholasticMarksArr }) => {
             {subjectsArr.map((subject, index) => {
               return (
                 !selectedSubject.includes(subject) && (
-                  <option key={index} value={subject}>{subject}</option>
+                  <option key={index} value={subject}>
+                    {subject}
+                  </option>
                 )
               );
             })}

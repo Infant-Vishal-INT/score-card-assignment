@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { loginValidation } from "../components/utils/Validation";
 import "react-toastify/dist/ReactToastify.css";
 import "../assets/css/loginPage.css";
 
@@ -19,15 +19,8 @@ const LoginPage = () => {
       loginEmail: "",
       loginPassword: "",
     },
-    validationSchema: yup.object({
-      loginEmail: yup
-        .string()
-        .email("Please enter the valid email")
-        .required("Please enter the valid email"),
-      loginPassword: yup.string().required("Please enter the valid password"),
-    }),
+    validationSchema: loginValidation,
     onSubmit: async (values) => {
-      console.log("values", values);
       try {
         const response = await axios.post(
           `https://stormy-cod-cloak.cyclic.app/signIn`,
@@ -37,7 +30,7 @@ const LoginPage = () => {
         navigate("/score_card");
         window.location.reload();
       } catch (error) {
-        console.log("error:", error);
+
         localStorage.setItem("jwtToken", "");
         toast.error("Please enter the valid credentials", {
           position: "bottom-right",
@@ -55,8 +48,8 @@ const LoginPage = () => {
   return (
     <div className="d-flex flex-column justify-content-center login-container">
       <ToastContainer />
-      <div className="card align-self-center login-form-card">
-        <div className="card-body">
+      <div className="card align-self-center">
+        <div className="card-body login-form-card">
           <h4 class="card-title text-center">Login</h4>
           <form onSubmit={formik.handleSubmit}>
             <div className="form-group">
@@ -86,7 +79,7 @@ const LoginPage = () => {
                 name="loginPassword"
                 onChange={formik.handleChange}
                 value={formik.values.loginPassword}
-                placeholder="Enter Password"
+                placeholder="Enter password"
               />
               {formik.errors.loginPassword && formik.touched.loginPassword ? (
                 <div className="modal-text text-danger">
@@ -109,7 +102,7 @@ const LoginPage = () => {
               </label>
             </div>
             <div className="text-center">
-              <button type="submit" className="btn btn-success">
+              <button type="submit" className="btn btn-primary">
                 Submit
               </button>
             </div>

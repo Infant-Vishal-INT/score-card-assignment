@@ -1,47 +1,49 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import CoScholasticAreasForm from "../utils/CoScholasticAreasForm";
+import AttendenceForm from "../forms/AttendenceForm";
 import "../../assets/css/table.css";
 
-const CoScholasticAreas = () => {
-  const coScholasticGradeArr = useSelector(
-    (state) => state.scoreReducer.coScholasticGrade
-  );
+const Attendence = () => {
+  const attendenceArr = useSelector((state) => state.scoreReducer.attendence);
+  let numOfDaysPresent = 0;
+  if (attendenceArr.length === 0) {
+    numOfDaysPresent = 0;
+  } else {
+    numOfDaysPresent = attendenceArr[0].presentDays;
+  }
+
   return (
     <div>
-      <table
-        className="table table-bordered table-hover"
-        id="co_scholastic_areas_table"
-      >
+      <table className="table table-bordered table-hover" id="attendence_table">
         <thead>
           <tr>
-            <th colSpan={2}>
+            <th colSpan={4}>
               <div>
-                <h5 className="table-name">Part-2 : Co-Scholastic Areas</h5>
+                <h5 className="table-name">Part-3 : Attendence</h5>
                 {/* modal popup */}
                 {/*  Button trigger modal  */}
                 <button
                   type="button"
                   class="btn btn-primary"
                   data-toggle="modal"
-                  data-target="#coScholasticAreasModal"
+                  data-target="#attendenceModal"
                 >
                   Add
                 </button>
 
-                {/* Co Scholastic Areas Modal */}
+                {/* Attendence Modal */}
                 <div
                   class="modal fade"
-                  id="coScholasticAreasModal"
+                  id="attendenceModal"
                   tabindex="-1"
                   role="dialog"
-                  aria-labelledby="coScholasticAreasModal"
+                  aria-labelledby="attendenceModal"
                   aria-hidden="true"
                 >
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">Update Co-Scholastic Grades</h5>
+                        <h5 class="modal-title">Update Attendence</h5>
                         <button
                           type="button"
                           class="close"
@@ -52,9 +54,7 @@ const CoScholasticAreas = () => {
                         </button>
                       </div>
                       <div class="modal-body">
-                        <CoScholasticAreasForm
-                          coScholasticGradeArr={coScholasticGradeArr}
-                        />
+                        <AttendenceForm />
                       </div>
                     </div>
                   </div>
@@ -64,22 +64,22 @@ const CoScholasticAreas = () => {
           </tr>
           <tr>
             <th></th>
-            <th>Grade</th>
+            <th>No. of Working Days</th>
+            <th>No. of Days Present</th>
+            <th>Percentage</th>
           </tr>
         </thead>
         <tbody>
-          {coScholasticGradeArr?.map((coScholasticGrade) => {
-            return (
-              <tr>
-                <td>{coScholasticGrade.coScholasticSkills}</td>
-                <td>{coScholasticGrade.grade}</td>
-              </tr>
-            );
-          })}
+          <tr>
+            <td>TERM - I</td>
+            <td>83</td>
+            <td>{numOfDaysPresent}</td>
+            <td>{((numOfDaysPresent * 100) / 83).toFixed(1)}%</td>
+          </tr>
         </tbody>
       </table>
     </div>
   );
 };
 
-export default CoScholasticAreas;
+export default Attendence;

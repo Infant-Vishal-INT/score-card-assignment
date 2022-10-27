@@ -1,8 +1,8 @@
 import React from "react";
 import { useFormik } from "formik";
-import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { manageAttendence } from "../../redux/actions";
+import { attendenceFormValidation } from "../utils/Validation";
 
 const AttendenceForm = () => {
   const dispatch = useDispatch();
@@ -11,16 +11,10 @@ const AttendenceForm = () => {
     initialValues: {
       presentDays: 0,
     },
-    validationSchema: yup.object({
-      presentDays: yup
-        .number()
-        .min(0, "Minimum must be atleast 0")
-        .max(83, "Entered days is more than total working days")
-        .required("Please enter the Present Days")
-        .nullable(),
-    }),
+    validationSchema: attendenceFormValidation,
     onSubmit: (values) => {
       dispatch(manageAttendence(values));
+      formik.resetForm();
     },
   });
 

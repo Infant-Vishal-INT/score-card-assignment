@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import ScholasticAreasForm from "../forms/ScholasticAreasForm";
 import "../../assets/css/table.css";
-import ScholasticAreasForm from "../utils/ScholasticAreasForm";
 
 const ScholasticAreas = ({ cumulativeData, setCumulativeData }) => {
   const scholasticMarksArr = useSelector(
