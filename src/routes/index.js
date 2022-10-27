@@ -1,24 +1,40 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import ScoreCardPage from "../pages/ScoreCardPage";
 import PageNotFound from "../pages/PageNotFound";
 
 const MainRouter = () => {
-  const jwtToken = localStorage.getItem("jwtToken");
+  const location = useLocation();
+  const loginStatus = JSON.parse(localStorage.getItem("userLoggedIn"));
+
+  useEffect(() => {
+    if (location.pathname === "/") {
+      localStorage.setItem("userLoggedIn", false);
+    }
+  }, [location.pathname]);
 
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route
-            path="/score_card"
-            element={jwtToken !== "" ? <ScoreCardPage /> : <PageNotFound />}
-          />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route
+          path="/score_card"
+          element={
+            loginStatus === true ? (
+              <ScoreCardPage />
+            ) : (
+              <Navigate replace to={"/"} />
+            )
+          }
+        />
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
     </div>
   );
 };

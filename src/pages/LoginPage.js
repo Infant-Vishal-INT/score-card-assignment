@@ -9,6 +9,7 @@ import "../assets/css/loginPage.css";
 
 const LoginPage = () => {
   const navigate = useNavigate();
+
   const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
@@ -27,10 +28,10 @@ const LoginPage = () => {
           { username: values.loginEmail, password: values.loginPassword }
         );
         localStorage.setItem("jwtToken", response.data.token);
+        localStorage.setItem("userLoggedIn", true)
         navigate("/score_card");
-        window.location.reload();
+        
       } catch (error) {
-
         localStorage.setItem("jwtToken", "");
         toast.error("Please enter the valid credentials", {
           position: "bottom-right",
