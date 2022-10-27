@@ -5,7 +5,7 @@ export const downloadScoreCardPdf = (e, scoreCardId) => {
 
   const scoreCard = document.getElementById(scoreCardId);
   const opt = {
-    margin: 0.2,
+    margin: 0.12,
     filename: "myScoreCard.pdf",
     image: { type: "jpeg", quality: 0.98 },
     html2canvas: { scale: 1 },

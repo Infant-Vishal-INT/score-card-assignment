@@ -32,6 +32,7 @@ const ScoreCardPage = () => {
           <div className="col-12 col-lg-5 table-responsive">
             <CoScholasticAreas />
           </div>
+          <div class="html2pdf__page-break"></div>
           <div className="col-12 table-responsive">
             <Attendence />
           </div>
