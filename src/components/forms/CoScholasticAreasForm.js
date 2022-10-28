@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { manageCoScholasticGrade } from "../../redux/actions";
+import { addCoScholasticGrade } from "../../redux/actions";
 import { coScholasticAreasValidation } from "../utils/Validation";
 
 const CoScholasticAreasForm = ({ coScholasticGradeArr }) => {
@@ -30,7 +30,7 @@ const CoScholasticAreasForm = ({ coScholasticGradeArr }) => {
     },
     validationSchema: coScholasticAreasValidation,
     onSubmit: (values) => {
-      dispatch(manageCoScholasticGrade(values));
+      dispatch(addCoScholasticGrade(values));
       formik.resetForm();
     },
   });
@@ -74,7 +74,7 @@ const CoScholasticAreasForm = ({ coScholasticGradeArr }) => {
 
         <div class="form-group text-left mt-3">
           <label for="grade" className="text-left modal-text">
-            Subject
+            Grade
           </label>
           <select
             id="grade"

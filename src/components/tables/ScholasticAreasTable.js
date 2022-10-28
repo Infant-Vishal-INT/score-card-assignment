@@ -1,9 +1,17 @@
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { FiEdit } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
+import { deleteScholasticMarks } from "../../redux/actions";
 import ScholasticAreasForm from "../forms/ScholasticAreasForm";
 import "../../assets/css/table.css";
+import EditScholasticAreasForm from "../forms/edit_forms/EditScholasticAreasForm";
 
 const ScholasticAreas = ({ cumulativeData, setCumulativeData }) => {
+  const dispatch = useDispatch();
+  const [editIndex, setEditIndex] = useState(null);
+  const [showEditMarkModal, setShowEditMarkModal] = useState(false);
+
   const scholasticMarksArr = useSelector(
     (state) => state.scoreReducer.scholasticMarks
   );
@@ -22,27 +30,32 @@ const ScholasticAreas = ({ cumulativeData, setCumulativeData }) => {
     });
   }, [scholasticMarksArr]);
 
+  const handleEditMarks = (e, index) => {
+    e.preventDefault();
+    setShowEditMarkModal(true);
+    setEditIndex(index);
+  };
+
   return (
     <div>
-      <table
-        className="table table-bordered table-hover"
-        id="scholastic_areas_table"
-      >
+      <table className="table table-bordered" id="scholastic_areas_table">
         <thead>
           <tr>
-            <th colSpan={7}>
+            <th colSpan={9}>
               <div>
                 <h5 className="table-name">Part-1: Scholastic Areas</h5>
                 {/* modal popup */}
                 {/*  Button trigger modal  */}
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-toggle="modal"
-                  data-target="#scholasticAreasModal"
-                >
-                  Add
-                </button>
+                <div data-html2canvas-ignore="true">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#scholasticAreasModal"
+                  >
+                    Add
+                  </button>
+                </div>
 
                 {/* Scholastic Areas Modal */}
                 <div
@@ -56,7 +69,7 @@ const ScholasticAreas = ({ cumulativeData, setCumulativeData }) => {
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">Update Marks</h5>
+                        <h5 class="modal-title">Add Marks</h5>
                         <button
                           type="button"
                           class="close"
@@ -89,13 +102,28 @@ const ScholasticAreas = ({ cumulativeData, setCumulativeData }) => {
             <th className="text-center">SA</th>
             <th className="text-center">Oral</th>
             <th className="text-center">Overall Marks</th>
+            <th
+              className="text-center"
+              colspan={2}
+              data-html2canvas-ignore="true"
+            >
+              Action
+            </th>
           </tr>
+
           <tr>
             <th className="text-center">40</th>
             <th className="text-center">10</th>
             <th className="text-center">40</th>
             <th className="text-center">10</th>
             <th className="text-center">100</th>
+
+            <th className="text-center" data-html2canvas-ignore="true">
+              Edit
+            </th>
+            <th className="text-center" data-html2canvas-ignore="true">
+              Delete
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -111,6 +139,29 @@ const ScholasticAreas = ({ cumulativeData, setCumulativeData }) => {
                 <td>{scholasticMarks.saMark}</td>
                 <td>{scholasticMarks.saOralMark}</td>
                 <td>{scholasticMarks.overallMark}</td>
+
+                <td data-html2canvas-ignore="true">
+                  <FiEdit
+                    className="edit-icon"
+                    onClick={(e) => handleEditMarks(e, index)}
+                    data-toggle="modal"
+                    data-target="#editScholasticAreasModal"
+                  />
+                  {/* Edit Scholastic Areas Modal */}
+                  {showEditMarkModal ? (
+                    <EditScholasticAreasForm
+                      scholasticMarksArr={scholasticMarksArr}
+                      editIndex={editIndex}
+                    />
+                  ) : null}
+                </td>
+
+                <td data-html2canvas-ignore="true">
+                  <AiOutlineDelete
+                    className="delete-icon"
+                    onClick={() => dispatch(deleteScholasticMarks(index))}
+                  />
+                </td>
               </tr>
             );
           })}
@@ -118,15 +169,15 @@ const ScholasticAreas = ({ cumulativeData, setCumulativeData }) => {
         <tfoot className="text-right">
           <tr>
             <th colSpan={2}>GRAND TOTAL</th>
-            <td colspan={5}>{cumulativeData.grandTotal}</td>
+            <td colspan={7}>{cumulativeData.grandTotal}</td>
           </tr>
           <tr>
             <th colSpan={2}>PERCENTAGE</th>
-            <td colspan={5}>{cumulativeData.percentage}%</td>
+            <td colspan={7}>{cumulativeData.percentage}%</td>
           </tr>
           <tr>
             <th colSpan={2}>RANK</th>
-            <td colspan={5}>{cumulativeData.rank}</td>
+            <td colspan={7}>{cumulativeData.rank}</td>
           </tr>
         </tfoot>
       </table>

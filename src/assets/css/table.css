@@ -5,7 +5,12 @@
   font-weight: bold;
   margin: 16px;
 }
-
+.edit-icon:hover {
+  color: #097fe6;
+}
+.delete-icon:hover {
+  color: #f50a21;
+}
 .modal-text {
   font-weight: 600;
 }

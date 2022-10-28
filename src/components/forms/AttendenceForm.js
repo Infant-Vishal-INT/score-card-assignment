@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { manageAttendence } from "../../redux/actions";
+import { addAttendence } from "../../redux/actions";
 import { attendenceFormValidation } from "../utils/Validation";
 
 const AttendenceForm = () => {
@@ -13,7 +13,7 @@ const AttendenceForm = () => {
     },
     validationSchema: attendenceFormValidation,
     onSubmit: (values) => {
-      dispatch(manageAttendence(values));
+      dispatch(addAttendence(values));
       formik.resetForm();
     },
   });

@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
-import { manageScholasticMarks } from "../../redux/actions";
+import { addScholasticMarks } from "../../redux/actions";
 import { scholasticAreasValidation } from "../utils/Validation";
 
 const ScholasticAreasForm = ({ scholasticMarksArr }) => {
@@ -35,7 +35,7 @@ const ScholasticAreasForm = ({ scholasticMarksArr }) => {
     onSubmit: (values) => {
       values.overallMark =
         values.faMark + values.faOralMark + values.saMark + values.saOralMark;
-      dispatch(manageScholasticMarks(values));
+      dispatch(addScholasticMarks(values));
       formik.resetForm();
     },
   });

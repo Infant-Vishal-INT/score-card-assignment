@@ -57,10 +57,13 @@ const ScoreCardPage = () => {
           </div>
           <div className="col-12">
             <hr />
+
             <h5 className="quote-text font-weight-bold">
               Our Parents are seen God on the Earth.
             </h5>
-            <hr />
+            <div data-html2canvas-ignore="true">
+              <hr />
+            </div>
           </div>
         </div>
       </div>

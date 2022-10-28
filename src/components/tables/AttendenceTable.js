@@ -22,14 +22,16 @@ const Attendence = () => {
                 <h5 className="table-name">Part-3 : Attendence</h5>
                 {/* modal popup */}
                 {/*  Button trigger modal  */}
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-toggle="modal"
-                  data-target="#attendenceModal"
-                >
-                  Add
-                </button>
+                <div data-html2canvas-ignore="true">
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    data-toggle="modal"
+                    data-target="#attendenceModal"
+                  >
+                    Add
+                  </button>
+                </div>
 
                 {/* Attendence Modal */}
                 <div
