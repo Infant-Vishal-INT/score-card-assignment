@@ -14,7 +14,7 @@ const Attendence = () => {
 
   return (
     <div>
-      <table className="table table-bordered table-hover" id="attendence_table">
+      <table className="table table-bordered" id="attendence_table">
         <thead>
           <tr>
             <th colSpan={4}>
