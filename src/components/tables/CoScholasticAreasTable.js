@@ -11,7 +11,6 @@ const CoScholasticAreas = () => {
   const dispatch = useDispatch();
   const [editIndex, setEditIndex] = useState(null);
   const [showEditGradeModal, setShowEditGradeModal] = useState(false);
-
   const coScholasticGradeArr = useSelector(
     (state) => state.scoreReducer.coScholasticGrade
   );
