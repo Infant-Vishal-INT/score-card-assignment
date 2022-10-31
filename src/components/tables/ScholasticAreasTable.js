@@ -4,8 +4,9 @@ import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { deleteScholasticMarks } from "../../redux/actions";
 import ScholasticAreasForm from "../forms/ScholasticAreasForm";
-import "../../assets/css/table.css";
 import EditScholasticAreasForm from "../forms/edit_forms/EditScholasticAreasForm";
+import "../../assets/css/table.css";
+
 
 const ScholasticAreas = ({ cumulativeData, setCumulativeData }) => {
   const dispatch = useDispatch();

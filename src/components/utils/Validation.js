@@ -8,6 +8,25 @@ export const loginValidation = yup.object({
   loginPassword: yup.string().required("Please enter the valid password"),
 });
 
+export const addStudentValidation = yup.object({
+  student_name: yup.string().required("Please enter the student name"),
+  standard: yup
+    .number()
+    .min(1, "Minimum Standard must be atleast 1")
+    .max(12, "There can be no Standard higher than 12")
+    .required("Please enter the valid Standard"),
+  section: yup
+    .string()
+    .max(1, "Please enter the valid section")
+    .matches(/^[A-Z]+$/, "Standard must be in upper case")
+    .required("Please enter the valid Section"),
+  rollno: yup
+    .number()
+    .min(1, "Minimum Roll number must be atleast 1")
+    .max(60, "Entered role number is more than Students Strength")
+    .required("Please enter the valid Roll number"),
+});
+
 export const scholasticAreasValidation = yup.object({
   subject: yup.string().required("Please select the subject"),
   faMark: yup

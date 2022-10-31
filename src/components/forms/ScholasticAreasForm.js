@@ -19,7 +19,7 @@ const ScholasticAreasForm = ({ scholasticMarksArr }) => {
     "G.K.",
     "Conversation",
   ];
-
+console.log("scholasticMarksArr", scholasticMarksArr)
   const selectedSubject = scholasticMarksArr.map((e) => e.subject);
 
   const formik = useFormik({
@@ -35,6 +35,7 @@ const ScholasticAreasForm = ({ scholasticMarksArr }) => {
     onSubmit: (values) => {
       values.overallMark =
         values.faMark + values.faOralMark + values.saMark + values.saOralMark;
+      console.log("scholastic result", values);
       dispatch(addScholasticMarks(values));
       formik.resetForm();
     },
