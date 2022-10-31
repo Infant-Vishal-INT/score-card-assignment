@@ -8,25 +8,16 @@ import { scholasticAreasValidation } from "../../utils/Validation";
 const EditScholasticAreasForm = ({ scholasticMarksArr, editIndex }) => {
   const dispatch = useDispatch();
   const editItem = scholasticMarksArr[editIndex];
-  const subject = editItem?.subject;
 
   const formik = useFormik({
-    initialValues: {
-      subject: subject,
-      faMark: "",
-      faOralMark: "",
-      saMark: "",
-      saOralMark: "",
-      overallMark: "",
-    },
+    initialValues: editItem,
+    enableReinitialize: true,
     validationSchema: scholasticAreasValidation,
     onSubmit: (values) => {
-      values.subject = subject;
+      values.subject = editItem?.subject;
       values.overallMark =
         values.faMark + values.faOralMark + values.saMark + values.saOralMark;
-
       dispatch(editScholasticMarks(values));
-      formik.resetForm();
       toast.success("Updated successfully", {
         position: "bottom-right",
         autoClose: 3000,
@@ -54,7 +45,7 @@ const EditScholasticAreasForm = ({ scholasticMarksArr, editIndex }) => {
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Edit {subject} Marks</h5>
+              <h5 class="modal-title">Edit {editItem.subject} Marks</h5>
               <button
                 type="button"
                 class="close"

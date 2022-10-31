@@ -11,16 +11,12 @@ const EditCoScholasticAreasForm = ({ coScholasticGradeArr, editIndex }) => {
   const skill = editItem?.coScholasticSkills;
 
   const formik = useFormik({
-    initialValues: {
-      coScholasticSkills: skill,
-      grade: "",
-    },
+    initialValues: editItem,
+    enableReinitialize: true,
     validationSchema: coScholasticAreasValidation,
     onSubmit: (values) => {
       values.coScholasticSkills = skill;
-
       dispatch(editCoScholasticGrade(values));
-      formik.resetForm();
       toast.success("Updated successfully", {
         position: "bottom-right",
         autoClose: 3000,
