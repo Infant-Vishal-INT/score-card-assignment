@@ -24,7 +24,7 @@ const LoginPage = () => {
     onSubmit: async (values) => {
       try {
         const response = await axios.post(
-          `https://stormy-cod-cloak.cyclic.app/signIn`,
+          `https://bright-cyan-rabbit.cyclic.app/signIn`,
           { username: values.loginEmail, password: values.loginPassword }
         );
         localStorage.setItem("jwtToken", response.data.token);

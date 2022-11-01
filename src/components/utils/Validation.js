@@ -8,7 +8,7 @@ export const loginValidation = yup.object({
   loginPassword: yup.string().required("Please enter the valid password"),
 });
 
-export const addStudentValidation = yup.object({
+export const studentValidation = yup.object({
   student_name: yup.string().required("Please enter the student name"),
   standard: yup
     .number()

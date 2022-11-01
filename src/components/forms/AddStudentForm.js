@@ -1,8 +1,13 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { addStudentValidation } from "../utils/Validation";
+import { studentValidation } from "../utils/Validation";
 
 const AddStudentForm = () => {
+  const jwtToken = localStorage.getItem("jwtToken");
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       student_name: "",
@@ -10,8 +15,23 @@ const AddStudentForm = () => {
       section: "",
       rollno: "",
     },
-    validationSchema: addStudentValidation,
-    onSubmit: (values) => {
+    validationSchema: studentValidation,
+    onSubmit: async (values) => {
+      try {
+        console.log("jwt token", jwtToken);
+        const headers = {
+          Authorization: jwtToken,
+        };
+        const response = await axios.post(
+          "https://bright-cyan-rabbit.cyclic.app/student",
+          values,
+          { headers }
+        );
+        localStorage.setItem("persist:root", null);
+        window.location.reload();
+      } catch (error) {
+        console.log("Error", error);
+      }
       formik.resetForm();
     },
   });
