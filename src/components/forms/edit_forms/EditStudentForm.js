@@ -11,14 +11,15 @@ const EditStudentForm = ({ editStudent, headers }) => {
     validationSchema: studentValidation,
     onSubmit: (values) => {
       try {
-        console.log("edited values", values);
         axios
           .put("https://bright-cyan-rabbit.cyclic.app/updateStudent", values, {
             headers,
           })
-          .then((response) => console.log("Response", response))
+          .then((response) => {
+            console.log("Response", response);
+            window.location.reload();
+          })
           .catch((e) => console.log("Error:", e.message));
-        window.location.reload();
       } catch (err) {
         console.error("Edit Student Error:", err);
       }

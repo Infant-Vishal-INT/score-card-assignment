@@ -12,6 +12,7 @@ const StudentsListTable = () => {
     Authorization: jwtToken,
   };
   const [showEditStudentModal, setShowEditStudentModal] = useState(false);
+  const [editStudent, setEditStudent] = useState();
   const [studentsListArr, setStudentsListArr] = useState([
     {
       id: "7810ac56-b02d-4503-9a77-4a0f094d84b8",
@@ -29,20 +30,23 @@ const StudentsListTable = () => {
       .catch((error) => console.error("Error:", error.message));
   }, []);
 
-  const handleEditStudent = (e) => {
+  const handleEditStudent = (e, student) => {
     e.preventDefault();
+    setEditStudent(student);
     setShowEditStudentModal(true);
   };
 
   const handleDelete = (e, student) => {
     e.preventDefault();
     try {
-      console.log("header", headers, "student", student);
       axios
         .put("https://bright-cyan-rabbit.cyclic.app/deleteStudent", student, {
           headers,
         })
-        .then((response) => console.log("Response", response))
+        .then((response) => {
+          console.log("Response", response);
+          window.location.reload();
+        })
         .catch((e) => console.log("Error:", e.message));
     } catch (err) {
       console.log("Delete Error:", err);
@@ -131,7 +135,7 @@ const StudentsListTable = () => {
                   />
                   {/* Edit Scholastic Areas Modal */}
                   {showEditStudentModal ? (
-                    <EditStudentForm editStudent={student} headers={headers} />
+                    <EditStudentForm editStudent={editStudent} headers={headers} />
                   ) : null}
                 </td>
                 <td>
