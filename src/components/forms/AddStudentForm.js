@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { studentValidation } from "../utils/Validation";
 
-const AddStudentForm = () => {
-  const jwtToken = localStorage.getItem("jwtToken");
+const AddStudentForm = ({ headers }) => {
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -18,10 +17,6 @@ const AddStudentForm = () => {
     validationSchema: studentValidation,
     onSubmit: async (values) => {
       try {
-        console.log("jwt token", jwtToken);
-        const headers = {
-          Authorization: jwtToken,
-        };
         const response = await axios.post(
           "https://bright-cyan-rabbit.cyclic.app/student",
           values,

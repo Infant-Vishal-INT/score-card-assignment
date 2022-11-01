@@ -28,9 +28,8 @@ const LoginPage = () => {
           { username: values.loginEmail, password: values.loginPassword }
         );
         localStorage.setItem("jwtToken", response.data.token);
-        localStorage.setItem("userLoggedIn", true)
-        navigate("/score_card");
-        
+        localStorage.setItem("userLoggedIn", true);
+        navigate("/students_list");
       } catch (error) {
         localStorage.setItem("jwtToken", "");
         toast.error("Please enter the valid credentials", {

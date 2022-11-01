@@ -4,7 +4,7 @@ import React from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { studentValidation } from "../../utils/Validation";
 
-const EditStudentForm = ({ editStudent }) => {
+const EditStudentForm = ({ editStudent, headers }) => {
   const formik = useFormik({
     initialValues: editStudent,
     enableReinitialize: true,
@@ -12,15 +12,13 @@ const EditStudentForm = ({ editStudent }) => {
     onSubmit: (values) => {
       try {
         console.log("edited values", values);
-        toast.success("Updated successfully", {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        axios
+          .put("https://bright-cyan-rabbit.cyclic.app/updateStudent", values, {
+            headers,
+          })
+          .then((response) => console.log("Response", response))
+          .catch((e) => console.log("Error:", e.message));
+        window.location.reload();
       } catch (err) {
         console.error("Edit Student Error:", err);
       }

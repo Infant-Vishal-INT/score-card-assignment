@@ -19,7 +19,16 @@ const MainRouter = () => {
     <div>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/students_list" element={<StudentsListPage />} />
+        <Route
+          path="/students_list"
+          element={
+            loginStatus === true ? (
+              <StudentsListPage />
+            ) : (
+              <Navigate replace to={"/"} />
+            )
+          }
+        />
         <Route
           path="/score_card"
           element={

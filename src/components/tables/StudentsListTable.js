@@ -5,10 +5,12 @@ import "../../assets/css/table.css";
 import AddStudentForm from "../forms/AddStudentForm";
 import axios from "axios";
 import EditStudentForm from "../forms/edit_forms/EditStudentForm";
-import { toast } from "react-toastify";
 
 const StudentsListTable = () => {
   const jwtToken = localStorage.getItem("jwtToken");
+  const headers = {
+    Authorization: jwtToken,
+  };
   const [showEditStudentModal, setShowEditStudentModal] = useState(false);
   const [studentsListArr, setStudentsListArr] = useState([
     {
@@ -18,19 +20,9 @@ const StudentsListTable = () => {
       section: "B",
       rollno: 27,
     },
-    {
-      id: "7810ac56-b02d-4503-9a77-4a0f094d84b8",
-      student_name: "Vishal",
-      standard: 5,
-      section: "B",
-      rollno: 27,
-    },
   ]);
 
   useEffect(() => {
-    const headers = {
-      Authorization: jwtToken,
-    };
     axios
       .get("https://bright-cyan-rabbit.cyclic.app/students", { headers })
       .then((response) => setStudentsListArr(response.data.data))
@@ -42,21 +34,16 @@ const StudentsListTable = () => {
     setShowEditStudentModal(true);
   };
 
-  const handleDelete = (student) => {
+  const handleDelete = (e, student) => {
+    e.preventDefault();
     try {
+      console.log("header", headers, "student", student);
       axios
-        .put("https://bright-cyan-rabbit.cyclic.app/updateStudent", student)
+        .put("https://bright-cyan-rabbit.cyclic.app/deleteStudent", student, {
+          headers,
+        })
         .then((response) => console.log("Response", response))
         .catch((e) => console.log("Error:", e.message));
-      toast.success("Student Deleted successfully", {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
     } catch (err) {
       console.log("Delete Error:", err);
     }
@@ -105,7 +92,7 @@ const StudentsListTable = () => {
                         </button>
                       </div>
                       <div class="modal-body">
-                        <AddStudentForm />
+                        <AddStudentForm headers={headers} />
                       </div>
                     </div>
                   </div>
@@ -144,13 +131,13 @@ const StudentsListTable = () => {
                   />
                   {/* Edit Scholastic Areas Modal */}
                   {showEditStudentModal ? (
-                    <EditStudentForm editStudent={student} />
+                    <EditStudentForm editStudent={student} headers={headers} />
                   ) : null}
                 </td>
                 <td>
                   <AiOutlineDelete
                     className="delete-icon"
-                    onClick={() => handleDelete(student)}
+                    onClick={(e) => handleDelete(e, student)}
                   />
                 </td>
               </tr>
