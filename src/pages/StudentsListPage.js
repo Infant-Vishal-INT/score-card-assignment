@@ -4,7 +4,7 @@ import StudentsListTable from "../components/tables/StudentsListTable";
 const StudentsListPage = () => {
   return (
     <>
-      <nav class="navbar navbar-light bg-primary">
+      <nav class="navbar navbar-light bg-primary fixed-top">
         <a class="navbar-brand font-weight-bold" href="#">
           <img
             src={require("../assets/images/admin_image.png")}
