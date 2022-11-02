@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { studentValidation } from "../utils/Validation";
 
@@ -24,8 +24,11 @@ const AddStudentForm = ({ headers }) => {
           .then((response) => {
             console.log("response", response.data.data);
             localStorage.setItem("persist:root", null);
-            localStorage.setItem("studentDetails", JSON.stringify(response.data.data));
-            navigate("/score_card")
+            localStorage.setItem(
+              "studentDetails",
+              JSON.stringify(response.data.data)
+            );
+            navigate("/score_card");
             window.location.reload();
           })
           .catch((error) => console.log("Error:", error));

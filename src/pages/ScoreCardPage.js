@@ -3,7 +3,7 @@ import Attendence from "../components/tables/AttendenceTable";
 import CoScholasticAreas from "../components/tables/CoScholasticAreasTable";
 import GradingScale from "../components/tables/GradingScaleTable";
 import ScholasticAreas from "../components/tables/ScholasticAreasTable";
-import { downloadScoreCardPdf } from "../components/utils/DownloadPdf";
+import { DownloadScoreCardPdf } from "../components/utils/DownloadPdf";
 import "../assets/css/mainPage.css";
 import { useSelector } from "react-redux";
 
@@ -101,15 +101,15 @@ const ScoreCardPage = () => {
         <button
           type="button"
           class="btn btn-dark mb-3"
-          onClick={(e) =>
-            downloadScoreCardPdf(
+          onClick={(e) => {
+            DownloadScoreCardPdf(
               e,
               scoreCardId,
               studentId,
               scholasticMarksArr,
               jwtToken
-            )
-          }
+            );
+          }}
         >
           Get PDF
         </button>

@@ -5,6 +5,10 @@
   font-weight: bold;
   margin: 16px;
 }
+
+.alert-popup-button:hover {
+  color: #097fe6;
+}
 .edit-icon:hover {
   color: #097fe6;
 }

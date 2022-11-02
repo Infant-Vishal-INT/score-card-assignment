@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
-import "../../assets/css/table.css";
 import AddStudentForm from "../forms/AddStudentForm";
 import axios from "axios";
 import EditStudentForm from "../forms/edit_forms/EditStudentForm";
+import DeleteStudentPopup from "../utils/DeleteStudentPopup";
+import "../../assets/css/table.css";
 
 const StudentsListTable = () => {
   const jwtToken = localStorage.getItem("jwtToken");
@@ -13,20 +14,26 @@ const StudentsListTable = () => {
   };
   const [showEditStudentModal, setShowEditStudentModal] = useState(false);
   const [editStudent, setEditStudent] = useState();
+  const [deleteStudent, setDeleteStudent] = useState();
   const [studentsListArr, setStudentsListArr] = useState([
     {
-      id: "7810ac56-b02d-4503-9a77-4a0f094d84b8",
-      student_name: "Bharath",
-      standard: 5,
-      section: "B",
-      rollno: 27,
+      id: "c0b73102-97bb-4e6b-b32a-6cd9f1d19bee",
+      student_name: "Senthamizh",
+      standard: 3,
+      section: "C",
+      rollno: 10,
+      status: "1",
     },
   ]);
 
   useEffect(() => {
+    console.log("num of times get response is called");
     axios
       .get("https://bright-cyan-rabbit.cyclic.app/students", { headers })
-      .then((response) => setStudentsListArr(response.data.data))
+      .then((response) => {
+        console.log("num of times get response is success");
+        setStudentsListArr(response.data.data);
+      })
       .catch((error) => console.error("Error:", error.message));
   }, []);
 
@@ -38,19 +45,7 @@ const StudentsListTable = () => {
 
   const handleDelete = (e, student) => {
     e.preventDefault();
-    try {
-      axios
-        .put("https://bright-cyan-rabbit.cyclic.app/deleteStudent", student, {
-          headers,
-        })
-        .then((response) => {
-          console.log("Response", response);
-          window.location.reload();
-        })
-        .catch((e) => console.log("Error:", e.message));
-    } catch (err) {
-      console.log("Delete Error:", err);
-    }
+    setDeleteStudent(student);
   };
 
   return (
@@ -135,14 +130,26 @@ const StudentsListTable = () => {
                   />
                   {/* Edit Scholastic Areas Modal */}
                   {showEditStudentModal ? (
-                    <EditStudentForm editStudent={editStudent} headers={headers} />
+                    <EditStudentForm
+                      editStudent={editStudent}
+                      headers={headers}
+                    />
                   ) : null}
                 </td>
                 <td>
                   <AiOutlineDelete
                     className="delete-icon"
                     onClick={(e) => handleDelete(e, student)}
+                    data-toggle="modal"
+                    data-target="#deleteStudentAlertModal"
                   />
+                  {/*Delete Student Popup */}
+                  {deleteStudent ? (
+                    <DeleteStudentPopup
+                      deleteStudent={deleteStudent}
+                      headers={headers}
+                    />
+                  ) : null}
                 </td>
               </tr>
             );

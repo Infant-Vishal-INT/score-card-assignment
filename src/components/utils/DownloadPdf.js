@@ -1,7 +1,8 @@
 import axios from "axios";
 import html2pdf from "html2pdf.js";
+import { useNavigate } from "react-router-dom";
 
-export const downloadScoreCardPdf = (
+export const DownloadScoreCardPdf = (
   e,
   scoreCardId,
   studentId,
@@ -9,6 +10,8 @@ export const downloadScoreCardPdf = (
   jwtToken
 ) => {
   e.preventDefault();
+
+  const navigate = useNavigate();
 
   const headers = {
     Authorization: jwtToken,
@@ -20,7 +23,7 @@ export const downloadScoreCardPdf = (
     .post("https://bright-cyan-rabbit.cyclic.app/addResult", result, {
       headers,
     })
-    .then((response) => console.log("result response", response))
+    .then((response) => navigate("/students_list"))
     .catch((err) => console.log("error:", err));
 
   const scoreCard = document.getElementById(scoreCardId);
@@ -32,4 +35,5 @@ export const downloadScoreCardPdf = (
     jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
   };
   html2pdf(scoreCard, opt);
+  return;
 };

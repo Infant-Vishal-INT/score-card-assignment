@@ -1,10 +1,37 @@
+import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import React from "react";
-import { toast, ToastContainer } from "react-toastify";
 import { studentValidation } from "../../utils/Validation";
 
 const EditStudentForm = ({ editStudent, headers }) => {
+  const navigate = useNavigate();
+  const studentId = editStudent.id;
+  const [editStudentResult, setEditStudentResult] = useState([]);
+
+  console.log("student id", studentId);
+
+  const handleEditResult = (e) => {
+    e.preventDefault();
+    try {
+      axios
+        .get(`https://bright-cyan-rabbit.cyclic.app/result/${studentId}`, {
+          headers,
+        })
+        .then((response) => {
+          setEditStudentResult(response.data.data);
+          // navigate("/score_card");
+          // window.location.reload();
+        })
+        .catch((error) => console.error("Error", error));
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  };
+
+  console.log("Edit Student Array", editStudentResult);
+
+
   const formik = useFormik({
     initialValues: editStudent,
     enableReinitialize: true,
@@ -27,7 +54,6 @@ const EditStudentForm = ({ editStudent, headers }) => {
   });
   return (
     <div>
-      <ToastContainer />
       {/* Edit Student Modal */}
       <div
         class="modal"
@@ -136,10 +162,16 @@ const EditStudentForm = ({ editStudent, headers }) => {
                 <div className="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    class="btn btn-danger"
                     data-dismiss="modal"
                   >
                     Close
+                  </button>
+                  <button
+                    class="btn btn-warning ml-3"
+                    onClick={handleEditResult}
+                  >
+                    Edit Result
                   </button>
                   <button type="submit" class="btn btn-success ml-3">
                     Update
