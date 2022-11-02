@@ -3,11 +3,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { studentValidation } from "../../utils/Validation";
+import { useDispatch } from "react-redux";
+import { addScholasticMarks } from "../../../redux/actions";
 
 const EditStudentForm = ({ editStudent, headers }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const studentId = editStudent.id;
-  const [editStudentResult, setEditStudentResult] = useState([]);
+  const [editStudentResultArr, setEditStudentResultArr] = useState([]);
 
   console.log("student id", studentId);
 
@@ -19,7 +22,13 @@ const EditStudentForm = ({ editStudent, headers }) => {
           headers,
         })
         .then((response) => {
-          setEditStudentResult(response.data.data);
+          setEditStudentResultArr(response.data.data);
+
+          for (const i in editStudentResultArr) {
+            console.log(editStudentResultArr[i]);
+            dispatch(addScholasticMarks(editStudentResultArr[i]));
+          }
+
           // navigate("/score_card");
           // window.location.reload();
         })
@@ -28,9 +37,6 @@ const EditStudentForm = ({ editStudent, headers }) => {
       console.error("Error:", err);
     }
   };
-
-  console.log("Edit Student Array", editStudentResult);
-
 
   const formik = useFormik({
     initialValues: editStudent,
