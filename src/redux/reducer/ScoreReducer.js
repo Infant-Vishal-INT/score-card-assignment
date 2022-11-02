@@ -5,6 +5,8 @@ const initialState = {
 };
 const ScoreReducer = (state = initialState, action) => {
   switch (action.type) {
+    case "CLEARPERSISTEDDATA":
+      return initialState;
     case "ADDSCHOLASTICMARKS":
       return {
         ...state,

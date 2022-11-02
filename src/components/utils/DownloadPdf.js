@@ -1,6 +1,6 @@
 import axios from "axios";
 import html2pdf from "html2pdf.js";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export const DownloadScoreCardPdf = (
   e,
@@ -11,7 +11,7 @@ export const DownloadScoreCardPdf = (
 ) => {
   e.preventDefault();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const headers = {
     Authorization: jwtToken,
@@ -19,12 +19,28 @@ export const DownloadScoreCardPdf = (
 
   const result = { subjects: scholasticMarksArr, student_id: studentId };
 
-  axios
+  const fromEditResult = JSON.parse(localStorage.getItem("fromEditResult"));
+  
+  console.log("Result => ", result);
+  
+  if (fromEditResult) {
+    axios
+    .put("https://bright-cyan-rabbit.cyclic.app/updateResult", result, {
+      headers,
+    })
+    .then((response) => {
+      console.log("Response => ", response);
+      // navigate("/students_list");
+    })
+    .catch((err) => console.log("error:", err));
+  } else {
+    axios
     .post("https://bright-cyan-rabbit.cyclic.app/addResult", result, {
       headers,
     })
-    .then((response) => navigate("/students_list"))
+    .then((response) => console.log("Response => ", response))
     .catch((err) => console.log("error:", err));
+  }
 
   const scoreCard = document.getElementById(scoreCardId);
   const opt = {

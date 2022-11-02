@@ -1,3 +1,10 @@
+
+export const clearPersistedData = () => {
+  return {
+    type: "CLEARPERSISTEDDATA"
+  };
+};
+
 export const addScholasticMarks = (values) => {
   return {
     type: "ADDSCHOLASTICMARKS",

@@ -4,15 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { studentValidation } from "../../utils/Validation";
 import { useDispatch } from "react-redux";
-import { addScholasticMarks } from "../../../redux/actions";
+import { addScholasticMarks, clearPersistedData } from "../../../redux/actions";
 
 const EditStudentForm = ({ editStudent, headers }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const studentId = editStudent.id;
-  const [editStudentResultArr, setEditStudentResultArr] = useState([]);
 
-  console.log("student id", studentId);
+  // console.log("student id", studentId);
 
   const handleEditResult = (e) => {
     e.preventDefault();
@@ -22,15 +21,31 @@ const EditStudentForm = ({ editStudent, headers }) => {
           headers,
         })
         .then((response) => {
-          setEditStudentResultArr(response.data.data);
+          localStorage.setItem(
+            "studentDetails",
+            JSON.stringify(response.data.data)
+          );
 
-          for (const i in editStudentResultArr) {
-            console.log(editStudentResultArr[i]);
-            dispatch(addScholasticMarks(editStudentResultArr[i]));
-          }
+          localStorage.setItem("fromEditResult", true);
 
-          // navigate("/score_card");
-          // window.location.reload();
+          dispatch(clearPersistedData());
+
+          // for (const i in response.data.data) {
+          //   dispatch(addScholasticMarks(response.data.data[i]));
+          // }
+
+          // let i=0;
+          // for(let i=0; i < response.data.data.length; i++) {
+          //   console.log("i => ", i, "val => ", response.data.data[i]);
+          //   dispatch(addScholasticMarks(response.data.data[i]));
+          // }
+
+          response.data.data.forEach(element => {
+            dispatch(addScholasticMarks(element));
+          });
+          
+          navigate("/score_card");
+          window.location.reload();
         })
         .catch((error) => console.error("Error", error));
     } catch (err) {
