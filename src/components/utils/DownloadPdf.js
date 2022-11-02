@@ -1,7 +1,27 @@
+import axios from "axios";
 import html2pdf from "html2pdf.js";
 
-export const downloadScoreCardPdf = (e, scoreCardId) => {
+export const downloadScoreCardPdf = (
+  e,
+  scoreCardId,
+  studentId,
+  scholasticMarksArr,
+  jwtToken
+) => {
   e.preventDefault();
+
+  const headers = {
+    Authorization: jwtToken,
+  };
+
+  const result = { subjects: scholasticMarksArr, student_id: studentId };
+
+  axios
+    .post("https://bright-cyan-rabbit.cyclic.app/addResult", result, {
+      headers,
+    })
+    .then((response) => console.log("result response", response))
+    .catch((err) => console.log("error:", err));
 
   const scoreCard = document.getElementById(scoreCardId);
   const opt = {

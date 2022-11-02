@@ -5,8 +5,19 @@ import GradingScale from "../components/tables/GradingScaleTable";
 import ScholasticAreas from "../components/tables/ScholasticAreasTable";
 import { downloadScoreCardPdf } from "../components/utils/DownloadPdf";
 import "../assets/css/mainPage.css";
+import { useSelector } from "react-redux";
 
 const ScoreCardPage = () => {
+  const studentDetails = JSON.parse(localStorage.getItem("studentDetails"));
+  const jwtToken = localStorage.getItem("jwtToken");
+
+  const studentId = studentDetails.id;
+
+  const scholasticMarksArr = useSelector(
+    (state) => state.scoreReducer.scholasticMarks
+  );
+
+  console.log("scholastic marks array", scholasticMarksArr);
   const scoreCardId = "score_card_container";
   const [cumulativeData, setCumulativeData] = useState({
     grandTotal: 0,
@@ -22,21 +33,27 @@ const ScoreCardPage = () => {
         <h3 className="sub-heading">Academic Performance</h3>
         <hr />
         <div className="d-flex flex-row justify-content-center mt-3 mb-3">
-        <div class="card w-50">
-          <div class="card-header font-weight-bold">Student Details</div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">ID: XXXXXXXX</li>
-            <li class="list-group-item">Name: Vishal </li>
-            <li class="list-group-item">Standard: 10</li>
-            <li class="list-group-item">Section: C</li>
-            <li class="list-group-item">Roll Number: 5</li>
-          </ul>
+          <div class="card w-50">
+            <div class="card-header font-weight-bold">Student Details</div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Name: {studentDetails.student_name}{" "}
+              </li>
+              <li class="list-group-item">
+                Standard: {studentDetails.standard}
+              </li>
+              <li class="list-group-item">Section: {studentDetails.section}</li>
+              <li class="list-group-item">
+                Roll Number: {studentDetails.rollno}
+              </li>
+            </ul>
+          </div>
         </div>
-        </div>
-        
+
         <div className="row">
           <div className="col-12 col-lg-7 table-responsive">
             <ScholasticAreas
+              scholasticMarksArr={scholasticMarksArr}
               cumulativeData={cumulativeData}
               setCumulativeData={setCumulativeData}
             />
@@ -84,7 +101,15 @@ const ScoreCardPage = () => {
         <button
           type="button"
           class="btn btn-dark mb-3"
-          onClick={(e) => downloadScoreCardPdf(e, scoreCardId)}
+          onClick={(e) =>
+            downloadScoreCardPdf(
+              e,
+              scoreCardId,
+              studentId,
+              scholasticMarksArr,
+              jwtToken
+            )
+          }
         >
           Get PDF
         </button>

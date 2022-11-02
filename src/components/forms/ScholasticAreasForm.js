@@ -19,7 +19,6 @@ const ScholasticAreasForm = ({ scholasticMarksArr }) => {
     "G.K.",
     "Conversation",
   ];
-console.log("scholasticMarksArr", scholasticMarksArr)
   const selectedSubject = scholasticMarksArr.map((e) => e.subject);
 
   const formik = useFormik({

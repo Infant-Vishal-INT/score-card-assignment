@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { studentValidation } from "../utils/Validation";
 
@@ -15,15 +15,20 @@ const AddStudentForm = ({ headers }) => {
       rollno: "",
     },
     validationSchema: studentValidation,
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
       try {
-        const response = await axios.post(
-          "https://bright-cyan-rabbit.cyclic.app/student",
-          values,
-          { headers }
-        );
-        localStorage.setItem("persist:root", null);
-        window.location.reload();
+        axios
+          .post("https://bright-cyan-rabbit.cyclic.app/student", values, {
+            headers,
+          })
+          .then((response) => {
+            console.log("response", response.data.data);
+            localStorage.setItem("persist:root", null);
+            localStorage.setItem("studentDetails", JSON.stringify(response.data.data));
+            navigate("/score_card")
+            window.location.reload();
+          })
+          .catch((error) => console.log("Error:", error));
       } catch (error) {
         console.log("Error", error);
       }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { deleteScholasticMarks } from "../../redux/actions";
@@ -7,15 +7,14 @@ import ScholasticAreasForm from "../forms/ScholasticAreasForm";
 import EditScholasticAreasForm from "../forms/edit_forms/EditScholasticAreasForm";
 import "../../assets/css/table.css";
 
-
-const ScholasticAreas = ({ cumulativeData, setCumulativeData }) => {
+const ScholasticAreas = ({
+  cumulativeData,
+  scholasticMarksArr,
+  setCumulativeData,
+}) => {
   const dispatch = useDispatch();
   const [editIndex, setEditIndex] = useState(null);
   const [showEditMarkModal, setShowEditMarkModal] = useState(false);
-
-  const scholasticMarksArr = useSelector(
-    (state) => state.scoreReducer.scholasticMarks
-  );
 
   let overallMarkArr = [];
 
