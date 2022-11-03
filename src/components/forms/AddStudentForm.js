@@ -23,6 +23,7 @@ const AddStudentForm = ({ headers }) => {
           })
           .then((response) => {
             console.log("response", response.data.data);
+            localStorage.setItem("fromEditResult", false);
             localStorage.setItem("persist:root", null);
             localStorage.setItem(
               "studentDetails",
