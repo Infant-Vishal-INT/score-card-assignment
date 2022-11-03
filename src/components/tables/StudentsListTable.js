@@ -6,19 +6,18 @@ import axios from "axios";
 import EditStudentForm from "../forms/edit_forms/EditStudentForm";
 import DeleteStudentPopup from "../utils/DeleteStudentPopup";
 import "../../assets/css/table.css";
+import Pagination from "../utils/Pagination";
 
 const StudentsListTable = () => {
-  const jwtToken = localStorage.getItem("jwtToken");
-  const headers = {
-    Authorization: jwtToken,
-  };
   const [showEditStudentModal, setShowEditStudentModal] = useState(false);
   const [editStudent, setEditStudent] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [studentsPerPage] = useState(5);
   const [deleteStudent, setDeleteStudent] = useState();
   const [studentsListArr, setStudentsListArr] = useState([
     {
       id: "c0b73102-97bb-4e6b-b32a-6cd9f1d19bee",
-      student_name: "Senthamizh",
+      student_name: "Vishal",
       standard: 3,
       section: "C",
       rollno: 10,
@@ -26,6 +25,22 @@ const StudentsListTable = () => {
     },
   ]);
 
+  //Get current students
+
+  const indexOfLastPost = currentPage * studentsPerPage;
+  const indexOfFirstPost = indexOfLastPost - studentsPerPage;
+  const currenStudentsList = studentsListArr.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const jwtToken = localStorage.getItem("jwtToken");
+  const headers = {
+    Authorization: jwtToken,
+  };
   useEffect(() => {
     console.log("num of times get response is called");
     axios
@@ -113,10 +128,10 @@ const StudentsListTable = () => {
           </tr>
         </thead>
         <tbody>
-          {studentsListArr?.map((student, index) => {
+          {currenStudentsList?.map((student, index) => {
             return (
               <tr>
-                <td>{index + 1}</td>
+                <td>{studentsListArr.indexOf(student) + 1}</td>
                 <td>{student.student_name}</td>
                 <td>{student.standard}</td>
                 <td>{student.section}</td>
@@ -155,6 +170,15 @@ const StudentsListTable = () => {
             );
           })}
         </tbody>
+        <tfoot>
+          <td colSpan={7}>
+            <Pagination
+              studentsPerPage={studentsPerPage}
+              totalPosts={studentsListArr.length}
+              paginate={paginate}
+            />
+          </td>
+        </tfoot>
       </table>
     </div>
   );
