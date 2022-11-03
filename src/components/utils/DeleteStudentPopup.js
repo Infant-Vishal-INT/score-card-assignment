@@ -38,7 +38,7 @@ const DeleteStudentPopup = ({ deleteStudent, headers }) => {
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="deleteStudentAlertModalTitle">
-                Delete Alert
+                Delete Student
               </h5>
               <button
                 type="button"
