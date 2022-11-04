@@ -11,7 +11,7 @@ const ScoreCardPage = () => {
   const studentDetails = JSON.parse(localStorage.getItem("studentDetails"));
   const jwtToken = localStorage.getItem("jwtToken");
 
-  const studentId = studentDetails.id;
+  const studentId = studentDetails.length > 0 ? studentDetails[0].student_id : studentDetails.id;
 
   const scholasticMarksArr = useSelector(
     (state) => state.scoreReducer.scholasticMarks
