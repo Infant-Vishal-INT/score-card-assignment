@@ -4,7 +4,6 @@ import { useFormik } from "formik";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { loginValidation } from "../components/utils/Validation";
-import "react-toastify/dist/ReactToastify.css";
 import "../assets/css/loginPage.css";
 
 const LoginPage = () => {

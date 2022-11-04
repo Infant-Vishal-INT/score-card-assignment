@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 
 const DeleteStudentPopup = ({ deleteStudent, headers }) => {
-
   const handleDelete = (e) => {
     e.preventDefault();
     try {

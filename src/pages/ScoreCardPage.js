@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Attendence from "../components/tables/AttendenceTable";
 import CoScholasticAreas from "../components/tables/CoScholasticAreasTable";
 import GradingScale from "../components/tables/GradingScaleTable";
 import ScholasticAreas from "../components/tables/ScholasticAreasTable";
 import { DownloadScoreCardPdf } from "../components/utils/DownloadPdf";
 import "../assets/css/mainPage.css";
-import { useSelector } from "react-redux";
-import configureStore from "../redux/store";
-
-// const { persistor } = configureStore();
-
 
 const ScoreCardPage = () => {
-  // persistor.persist();
   const studentDetails = JSON.parse(localStorage.getItem("studentDetails"));
   const jwtToken = localStorage.getItem("jwtToken");
 
@@ -22,23 +17,6 @@ const ScoreCardPage = () => {
     (state) => state.scoreReducer.scholasticMarks
   );
 
-  
-
-  // useEffect(() => {
-  //   console.log("object");
-  //   // if(test == 1) {
-  //   //   window.location.reload();
-  //   // }
-  //   let test = localStorage.getItem("test");
-  //   if(test < 2) {
-  //     localStorage.setItem('test', String(test + 1));
-  //     window.location.reload();
-  //   } else {
-  //     localStorage.removeItem('test');
-  //   }
-  // }, []);
-
-  console.log("scholastic marks array", scholasticMarksArr);
   const scoreCardId = "score_card_container";
   const [cumulativeData, setCumulativeData] = useState({
     grandTotal: 0,
@@ -58,14 +36,28 @@ const ScoreCardPage = () => {
             <div class="card-header font-weight-bold">Student Details</div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
-                Name: {studentDetails.length > 0 ? studentDetails[0].student_name : studentDetails.student_name}{" "}
+                Name:{" "}
+                {studentDetails.length > 0
+                  ? studentDetails[0].student_name
+                  : studentDetails.student_name}{" "}
               </li>
               <li class="list-group-item">
-                Standard: {studentDetails.length > 0 ? studentDetails[0].standard : studentDetails.standard}
+                Standard:{" "}
+                {studentDetails.length > 0
+                  ? studentDetails[0].standard
+                  : studentDetails.standard}
               </li>
-              <li class="list-group-item">Section: {studentDetails.length > 0 ? studentDetails[0].section : studentDetails.section}</li>
               <li class="list-group-item">
-                Roll Number: {studentDetails.length > 0 ? studentDetails[0].rollno : studentDetails.rollno}
+                Section:{" "}
+                {studentDetails.length > 0
+                  ? studentDetails[0].section
+                  : studentDetails.section}
+              </li>
+              <li class="list-group-item">
+                Roll Number:{" "}
+                {studentDetails.length > 0
+                  ? studentDetails[0].rollno
+                  : studentDetails.rollno}
               </li>
             </ul>
           </div>

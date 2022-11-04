@@ -18,7 +18,7 @@ export const studentValidation = yup.object({
   section: yup
     .string()
     .max(1, "Please enter the valid section")
-    .matches(/^[A-Z]+$/, "Standard must be in upper case")
+    .matches(/^[A-Z]+$/, "Standard must be in upper case Alphabet")
     .required("Please enter the valid Section"),
   rollno: yup
     .number()

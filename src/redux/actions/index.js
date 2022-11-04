@@ -1,7 +1,6 @@
-
 export const clearPersistedData = () => {
   return {
-    type: "CLEARPERSISTEDDATA"
+    type: "CLEARPERSISTEDDATA",
   };
 };
 

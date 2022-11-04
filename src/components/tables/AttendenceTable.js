@@ -20,7 +20,6 @@ const Attendence = () => {
             <th colSpan={4}>
               <div>
                 <h5 className="table-name">Part-3 : Attendence</h5>
-                {/* modal popup */}
                 {/*  Button trigger modal  */}
                 <div data-html2canvas-ignore="true">
                   <button

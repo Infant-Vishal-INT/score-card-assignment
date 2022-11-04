@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import CoScholasticAreasForm from "../forms/CoScholasticAreasForm";
-import "../../assets/css/table.css";
 import { deleteCoScholasticGrade } from "../../redux/actions";
 import EditCoScholasticAreasForm from "../forms/edit_forms/EditCoScholasticAreasForm";
+import "../../assets/css/table.css";
 
 const CoScholasticAreas = () => {
   const dispatch = useDispatch();
@@ -23,16 +23,12 @@ const CoScholasticAreas = () => {
 
   return (
     <div>
-      <table
-        className="table table-bordered"
-        id="co_scholastic_areas_table"
-      >
+      <table className="table table-bordered" id="co_scholastic_areas_table">
         <thead>
           <tr>
             <th colSpan={4}>
               <div>
                 <h5 className="table-name">Part-2 : Co-Scholastic Areas</h5>
-                {/* modal popup */}
                 {/*  Button trigger modal  */}
                 <div data-html2canvas-ignore="true">
                   <button

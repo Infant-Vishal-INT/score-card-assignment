@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { FiEdit } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import AddStudentForm from "../forms/AddStudentForm";
-import axios from "axios";
 import EditStudentForm from "../forms/edit_forms/EditStudentForm";
 import DeleteStudentPopup from "../utils/DeleteStudentPopup";
-import "../../assets/css/table.css";
 import Pagination from "../utils/Pagination";
+import "../../assets/css/table.css";
 
 const StudentsListTable = () => {
   const [showEditStudentModal, setShowEditStudentModal] = useState(false);

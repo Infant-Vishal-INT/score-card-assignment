@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
-import { studentValidation } from "../../utils/Validation";
 import { useDispatch } from "react-redux";
 import { addScholasticMarks, clearPersistedData } from "../../../redux/actions";
+import { studentValidation } from "../../utils/Validation";
 
 const EditStudentForm = ({ editStudent, headers }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const studentId = editStudent.id;
-
-  // console.log("student id", studentId);
 
   const handleEditResult = (e) => {
     e.preventDefault();
@@ -30,20 +28,10 @@ const EditStudentForm = ({ editStudent, headers }) => {
 
           dispatch(clearPersistedData());
 
-          // for (const i in response.data.data) {
-          //   dispatch(addScholasticMarks(response.data.data[i]));
-          // }
-
-          // let i=0;
-          // for(let i=0; i < response.data.data.length; i++) {
-          //   console.log("i => ", i, "val => ", response.data.data[i]);
-          //   dispatch(addScholasticMarks(response.data.data[i]));
-          // }
-
-          response.data.data.forEach(element => {
+          response.data.data.forEach((element) => {
             dispatch(addScholasticMarks(element));
           });
-          
+
           navigate("/score_card");
           window.location.reload();
         })
